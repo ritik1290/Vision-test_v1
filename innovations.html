@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Innovations - Vision Health Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-content {
+            padding: 2rem;
+        }
+
+        .news-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .news-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .news-summary {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .source-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="floating-container">
+        <div class="float-item"><i class="fas fa-dna"></i></div>
+        <div class="float-item"><i class="fas fa-microscope"></i></div>
+        <div class="float-item"><i class="fas fa-robot"></i></div>
+        <div class="float-item"><i class="fas fa-user-md"></i></div>
+    </div>
+
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tests/index.html">Vision Tests</a></li>
+                <li><a href="innovations.html" class="active">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Latest Innovations in Ophthalmology</h1>
+            <p>Discover the groundbreaking technologies and treatments from 2024 that are revolutionizing vision care
+                and restoring sight.</p>
+        </section>
+
+        <div class="news-grid">
+
+            <!-- Item 1: MCO-010 Optogenetic Therapy -->
+            <article class="news-card">
+                <div class="news-content">
+                    <span class="news-date">October 2024</span>
+                    <h2 class="news-title">MCO-010: Optogenetic Gene Therapy Restores Vision in Retinitis Pigmentosa
+                    </h2>
+                    <p class="news-summary">
+                        Groundbreaking optogenetic therapy shows up to 50% of patients with severe retinitis pigmentosa
+                        gaining three or more lines of vision—without requiring external devices. MCO-010 represents
+                        mutation-agnostic treatment with FDA Fast Track designation.
+                    </p>
+                    <a href="innovations/mco010-optogenetics.html" target="_blank" rel="noopener noreferrer"
+                        class="source-link">
+                        Read Full Article <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Item 2: AEYE-DS AI Screening -->
+            <article class="news-card">
+                <div class="news-content">
+                    <span class="news-date">April 2024</span>
+                    <h2 class="news-title">FDA Authorizes First Portable AI for Diabetic Retinopathy Screening</h2>
+                    <p class="news-summary">
+                        AEYE-DS becomes the first autonomous AI system approved for diabetic retinopathy detection using
+                        handheld cameras, revolutionizing access to screening in underserved communities. This
+                        breakthrough enables point-of-care screening in primary care settings.
+                    </p>
+                    <a href="innovations/aeye-diabetic-screening.html" target="_blank" rel="noopener noreferrer"
+                        class="source-link">
+                        Read Full Article <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Item 3: ANX007 for Geographic Atrophy -->
+            <article class="news-card">
+                <div class="news-content">
+                    <span class="news-date">2024</span>
+                    <h2 class="news-title">ANX007 Achieves 72% Reduction in Vision Loss from Geographic Atrophy</h2>
+                    <p class="news-summary">
+                        Phase 2 clinical trials demonstrate unprecedented neuroprotection in dry AMD patients. As the
+                        first C1q inhibitor for geographic atrophy, ANX007 offers hope for millions facing untreatable
+                        vision loss with monthly dosing advancing to Phase 3.
+                    </p>
+                    <a href="innovations/anx007-ga-treatment.html" target="_blank" rel="noopener noreferrer"
+                        class="source-link">
+                        Read Full Article <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Item 4: CRISPR Gene Therapy -->
+            <article class="news-card">
+                <div class="news-content">
+                    <span class="news-date">May 2024</span>
+                    <h2 class="news-title">CRISPR Gene Editing Successfully Treats Inherited Blindness</h2>
+                    <p class="news-summary">
+                        The BRILLIANCE trial proves CRISPR-Cas9 can safely restore vision in Leber congenital amaurosis
+                        patients, with 79% showing measurable improvements. This first-in-human success validates
+                        in-vivo gene editing for treating genetic blindness.
+                    </p>
+                    <a href="innovations/crispr-lca-therapy.html" target="_blank" rel="noopener noreferrer"
+                        class="source-link">
+                        Read Full Article <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Vision Health Portal. All rights reserved.</p>
+            <p class="designer-credit">Designed by RITIK DHAGE</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

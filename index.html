@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Health Portal - Comprehensive Eye Disorders Guide</title>
+    <meta name="description"
+        content="Comprehensive guide to 50 eye conditions including cataracts, glaucoma, macular degeneration, diabetic retinopathy, and more. Learn symptoms, treatments, and prevention.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Floating Background Elements -->
+    <div class="floating-container">
+        <div class="float-item"><i class="fas fa-eye"></i></div>
+        <div class="float-item"><i class="fas fa-glasses"></i></div>
+        <div class="float-item"><i class="fas fa-eye-dropper"></i></div>
+        <div class="float-item"><i class="far fa-eye"></i></div>
+        <div class="float-item"><i class="fas fa-low-vision"></i></div>
+    </div>
+
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="tests/index.html">Vision Tests</a></li>
+                <li><a href="innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Protect Your Vision</h1>
+            <p>Explore our comprehensive library of 50 eye conditions. Each guide provides detailed information on
+                symptoms, causes, diagnosis, treatments, and prevention strategies.</p>
+            <a href="tests/index.html" class="btn">Start Vision Test</a>
+        </section>
+
+        <!-- Search and Symptom Checker Section -->
+        <section id="search-tools" class="search-section">
+            <div class="search-container">
+                <h2>Find What You're Looking For</h2>
+
+                <!-- Search Bar -->
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="disease-search"
+                        placeholder="Search for an eye condition (e.g., Glaucoma)...">
+                </div>
+                <div id="search-results" class="results-container"></div>
+
+                <div class="divider"><span>OR</span></div>
+
+                <!-- Symptom Checker -->
+                <div class="symptom-checker">
+                    <h3><i class="fas fa-user-md"></i> Symptom Checker</h3>
+                    <p>Describe what you are experiencing to find related conditions.</p>
+                    <div class="input-group">
+                        <input type="text" id="symptom-input"
+                            placeholder="E.g., blurred vision, eye pain, flashes of light...">
+                        <button id="check-symptoms-btn" class="btn">Check Symptoms</button>
+                    </div>
+                    <div id="symptom-results" class="results-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diseases" style="margin-top: 4rem;">
+            <h2 style="text-align: center; color: var(--secondary-color); margin-bottom: 1.5rem;">Comprehensive Eye
+                Disorders Guide</h2>
+            <p
+                style="text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--text-color); opacity: 0.9;">
+                Explore our extensive library of vision disorders. Click on any condition to learn about symptoms,
+                causes, treatments, and prevention strategies with comprehensive 2000+ word guides.
+            </p>
+
+            <!-- Lens Disorders -->
+            <h3
+                style="color: var(--primary-color); margin: 2.5rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Lens Disorders
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Cataracts</h3>
+                    <p>Clouding of the eye's natural lens, leading to blurred vision and sensitivity to glare.</p>
+                    <a href="diseases/cataracts.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Presbyopia</h3>
+                    <p>Age-related loss of ability to focus on close objects, typically beginning after age 40.</p>
+                    <a href="diseases/presbyopia.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Retinal Disorders -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Retinal Disorders
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Macular Degeneration (AMD)</h3>
+                    <p>Leading cause of vision loss in older adults, affecting central vision needed for reading and
+                        driving.</p>
+                    <a href="diseases/macular-degeneration.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Diabetic Retinopathy</h3>
+                    <p>A diabetes complication that damages blood vessels in the retina, potentially causing
+                        blindness.
+                    </p>
+                    <a href="diseases/diabetic-retinopathy.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Retinal Detachment</h3>
+                    <p>Medical emergency where the retina pulls away from its normal position, requiring immediate
+                        treatment.</p>
+                    <a href="diseases/retinal-detachment.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Retinitis Pigmentosa</h3>
+                    <p>Inherited degenerative disease causing progressive loss of night and peripheral vision.</p>
+                    <a href="diseases/retinitis-pigmentosa.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Central Serous Retinopathy</h3>
+                    <p>Fluid accumulation under the retina causing temporary vision loss, often affecting young
+                        adults.
+                    </p>
+                    <a href="diseases/central-serous-retinopathy.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Macular Hole</h3>
+                    <p>A small defect in the center of the macula causing blurred and distorted central vision.</p>
+                    <a href="diseases/macular-hole.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Epiretinal Membrane</h3>
+                    <p>Scar tissue on the retina's surface causing vision distortion and blurriness (macular
+                        pucker).
+                    </p>
+                    <a href="diseases/epiretinal-membrane.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Retinal Vein Occlusion</h3>
+                    <p>Blockage of veins carrying blood away from the retina, causing sudden vision loss.</p>
+                    <a href="diseases/retinal-vein-occlusion.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Retinal Artery Occlusion</h3>
+                    <p>Blockage of the main artery to the retina, a medical emergency causing sudden vision loss.
+                    </p>
+                    <a href="diseases/retinal-artery-occlusion.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Vitreous Hemorrhage</h3>
+                    <p>Bleeding into the gel-filled center of the eye, causing floaters and vision obstruction.</p>
+                    <a href="diseases/vitreous-hemorrhage.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Posterior Vitreous Detachment</h3>
+                    <p>Age-related separation of vitreous gel from retina causing floaters and flashes.</p>
+                    <a href="diseases/posterior-vitreous-detachment.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Choroidal Neovascularization</h3>
+                    <p>Abnormal blood vessels growing from choroid into retina, most common in wet AMD.</p>
+                    <a href="diseases/choroidal-neovascularization.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Optic Nerve Disorders -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Optic Nerve Disorders
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Glaucoma</h3>
+                    <p>Group of eye conditions that damage the optic nerve, often due to high eye pressure.</p>
+                    <a href="diseases/glaucoma.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Angle-Closure Glaucoma</h3>
+                    <p>Medical emergency with sudden eye pressure spike, severe pain, and blurred vision.</p>
+                    <a href="diseases/angle-closure-glaucoma.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Optic Neuritis</h3>
+                    <p>Inflammation of the optic nerve causing sudden vision loss and pain with eye movement.</p>
+                    <a href="diseases/optic-neuritis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Ocular Hypertension</h3>
+                    <p>Elevated eye pressure without glaucoma damage, requires monitoring and possible treatment.
+                    </p>
+                    <a href="diseases/ocular-hypertension.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Corneal Disorders -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Corneal Disorders
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Keratoconus</h3>
+                    <p>Progressive thinning and bulging of the cornea into a cone shape, distorting vision.</p>
+                    <a href="diseases/keratoconus.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Corneal Ulcer</h3>
+                    <p>Open sore on the cornea, usually from infection, requiring urgent treatment.</p>
+                    <a href="diseases/corneal-ulcer.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Fuchs' Dystrophy</h3>
+                    <p>Gradual deterioration of corneal cells causing swelling, glare, and cloudy vision.</p>
+                    <a href="diseases/fuchs-dystrophy.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Corneal Abrasion</h3>
+                    <p>Scratch or scrape on the cornea's surface causing pain and light sensitivity.</p>
+                    <a href="diseases/corneal-abrasion.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Pterygium</h3>
+                    <p>Growth of pink, fleshy tissue on the conjunctiva, often from UV exposure.</p>
+                    <a href="diseases/pterygium.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Pinguecula</h3>
+                    <p>Yellowish, slightly raised deposit on the conjunctiva, usually harmless.</p>
+                    <a href="diseases/pinguecula.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Keratitis</h3>
+                    <p>Inflammation or infection of the cornea causing redness, pain, and blurred vision.</p>
+                    <a href="diseases/keratitis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Band Keratopathy</h3>
+                    <p>Calcium deposition in cornea from chronic inflammation or elevated calcium levels.</p>
+                    <a href="diseases/band-keratopathy.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Refractive Errors -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Refractive Errors
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Myopia (Nearsightedness)</h3>
+                    <p>Difficulty seeing distant objects clearly while near objects appear sharp.</p>
+                    <a href="diseases/myopia.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Hyperopia (Farsightedness)</h3>
+                    <p>Difficulty focusing on close objects; distant objects may be clearer.</p>
+                    <a href="diseases/hyperopia.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Astigmatism</h3>
+                    <p>Irregular curvature of the cornea or lens causing blurred or distorted vision.</p>
+                    <a href="diseases/astigmatism.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Inflammatory & Infectious Disorders -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Inflammatory & Infectious Disorders
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Conjunctivitis (Pink Eye)</h3>
+                    <p>Inflammation or infection of the conjunctiva causing redness, discharge, and irritation.
+                    </p>
+                    <a href="diseases/conjunctivitis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Uveitis</h3>
+                    <p>Inflammation of the uvea (middle layer of the eye) causing redness, pain, and vision
+                        changes.
+                    </p>
+                    <a href="diseases/uveitis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Iritis (Anterior Uveitis)</h3>
+                    <p>Inflammation of the iris causing eye pain, light sensitivity, and blurred vision.</p>
+                    <a href="diseases/iritis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Scleritis</h3>
+                    <p>Severe inflammation of the sclera (white of the eye) causing intense pain and redness.
+                    </p>
+                    <a href="diseases/scleritis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Episcleritis</h3>
+                    <p>Benign inflammation of episclera causing mild redness and irritation.</p>
+                    <a href="diseases/episcleritis.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Eyelid & Surface Disorders -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Eyelid & Surface Disorders
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Dry Eye Syndrome</h3>
+                    <p>Insufficient tear production or poor tear quality causing discomfort and vision
+                        fluctuation.
+                    </p>
+                    <a href="diseases/dry-eye-syndrome.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Blepharitis</h3>
+                    <p>Chronic eyelid inflammation causing redness, crusting and irritation along the eyelid
+                        margins.
+                    </p>
+                    <a href="diseases/blepharitis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Chalazion</h3>
+                    <p>Painless bump on the eyelid from a blocked oil gland, different from an infection.</p>
+                    <a href="diseases/chalazion.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Stye (Hordeolum)</h3>
+                    <p>Painful, red bump on the eyelid edge caused by bacterial infection of an eyelash
+                        follicle.
+                    </p>
+                    <a href="diseases/stye.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Ectropion</h3>
+                    <p>Outward turning of the eyelid, exposing the inner surface and causing irritation.</p>
+                    <a href="diseases/ectropion.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Entropion</h3>
+                    <p>Inward turning of the eyelid causing lashes to rub against the eye.</p>
+                    <a href="diseases/entropion.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Dacryocystitis</h3>
+                    <p>Infection of the lacrimal sac causing painful swelling near the nose.</p>
+                    <a href="diseases/dacryocystitis.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Nasolacrimal Duct Obstruction</h3>
+                    <p>Blocked tear drainage system causing excessive tearing and discharge.</p>
+                    <a href="diseases/nasolacrimal-duct-obstruction.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Pediatric & Eye Tumors -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Pediatric & Eye Tumors
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Amblyopia (Lazy Eye)</h3>
+                    <p>Reduced vision in one eye due to abnormal visual development in childhood.</p>
+                    <a href="diseases/amblyopia.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Strabismus</h3>
+                    <p>Misalignment of the eyes causing one eye to turn in, out, up, or down.</p>
+                    <a href="diseases/strabismus.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Retinoblastoma</h3>
+                    <p>Most common eye cancer in children, characterized by white pupil reflex (leukocoria).</p>
+                    <a href="diseases/retinoblastoma.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Ocular Melanoma</h3>
+                    <p>Most common primary eye cancer in adults, arising from pigmented cells in uveal tract.
+                    </p>
+                    <a href="diseases/ocular-melanoma.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Other Common Conditions -->
+            <h3
+                style="color: var(--primary-color); margin: 3rem 0 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--primary-color); font-size: 1.5rem;">
+                Other Common Conditions
+            </h3>
+            <div class="grid">
+                <div class="card">
+                    <h3>Eye Floaters & Flashes</h3>
+                    <p>Spots, threads, or flashes of light in vision, often benign but can indicate retinal
+                        issues.
+                    </p>
+                    <a href="diseases/floaters-flashes.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Color Blindness</h3>
+                    <p>Difficulty distinguishing certain colors, most commonly red and green.</p>
+                    <a href="diseases/color-blindness.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Nystagmus</h3>
+                    <p>Involuntary rhythmic eye movements affecting vision and depth perception.</p>
+                    <a href="diseases/nystagmus.html" class="btn-outline">Learn More</a>
+                </div>
+
+                <div class="card">
+                    <h3>Subconjunctival Hemorrhage</h3>
+                    <p>Bright red blood spot on white of eye, usually harmless and self-resolving.</p>
+                    <a href="diseases/subconjunctival-hemorrhage.html" class="btn-outline">Learn More</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Vision Health Portal. For educational purposes only.</p>
+            <p class="designer-credit">Designed by RITIK DHAGE</p>
+            <p>This site provides general information about eye conditions and is not a substitute for
+                professional
+                medical advice.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
