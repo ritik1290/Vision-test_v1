@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Acuity Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        #calibration-box {
+            width: 300px;
+            /* Initial guess */
+            height: 180px;
+            background: #ccc;
+            margin: 2rem auto;
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-weight: bold;
+        }
+
+        #slider-container {
+            margin: 2rem 0;
+        }
+
+        input[type=range] {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .optotype {
+            font-family: sans-serif;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- Step 1: Calibration -->
+        <div id="step-calibration" class="test-container">
+            <h2>Screen Calibration</h2>
+            <p>To ensure accuracy, we need to calibrate your screen size. Please place a standard credit card (or any ID
+                card) against the screen and adjust the slider until the gray box matches the width of the card.</p>
+
+            <div id="calibration-box">
+                Credit Card Width
+            </div>
+
+            <div id="slider-container">
+                <input type="range" id="cal-slider" min="200" max="600" value="300">
+            </div>
+
+            <button id="btn-calibrated" class="btn">It Matches</button>
+        </div>
+
+        <!-- Step 2: Instructions -->
+        <div id="step-instructions" class="test-container hidden">
+            <h2>Instructions</h2>
+            <ul style="text-align: left; margin: 1rem auto; max-width: 500px;">
+                <li>Place yourself <strong>3 meters (10 feet)</strong> away from the screen.</li>
+                <li>Cover your <strong>left eye</strong> with your hand (do not press on it).</li>
+                <li>Read the letters displayed.</li>
+                <li>If you wear glasses for distance, keep them on.</li>
+            </ul>
+            <button id="btn-start" class="btn">Start Test</button>
+        </div>
+
+        <!-- Step 3: Test -->
+        <div id="step-test" class="test-container hidden">
+            <h3 id="acuity-level">20/200</h3>
+            <div id="optotype-display" class="optotype">E</div>
+
+            <div class="controls">
+                <button id="btn-cant-read" class="btn-outline">Can't Read</button>
+                <button id="btn-can-read" class="btn">I Can Read It</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Results -->
+        <div id="step-results" class="test-container hidden">
+            <h2>Your Result</h2>
+            <p>Your estimated visual acuity is:</p>
+            <h1 id="final-result" style="font-size: 4rem; color: var(--primary-color);">20/20</h1>
+            <p>Please repeat for the other eye.</p>
+            <div class="controls">
+                <a href="index.html" class="btn-outline">Back to Tests</a>
+                <button onclick="window.print()" class="btn">Print Result</button>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 2rem; color: #666;">Disclaimer: This is a screening tool and not a
+                substitute for a professional eye exam.</p>
+        </div>
+
+    </main>
+
+    <script>
+        // Constants
+        const CREDIT_CARD_WIDTH_MM = 85.6;
+        const DISTANCE_METERS = 3;
+        const SNELLEN_ARC_MIN = 5;
+
+        // State
+        let pixelsPerMM = 0;
+        let currentLevelIndex = 0;
+
+        // Snellen Levels (Denominator for 20/x)
+        // 20/200, 20/100, 20/70, 20/50, 20/40, 20/30, 20/20
+        const levels = [200, 100, 70, 50, 40, 30, 20, 15, 10];
+        const optotypes = ['E', 'F', 'P', 'T', 'O', 'Z', 'L', 'D'];
+
+        // DOM Elements
+        const slider = document.getElementById('cal-slider');
+        const box = document.getElementById('calibration-box');
+        const display = document.getElementById('optotype-display');
+        const acuityLabel = document.getElementById('acuity-level');
+
+        // Calibration Logic
+        slider.addEventListener('input', (e) => {
+            box.style.width = e.target.value + 'px';
+        });
+
+        document.getElementById('btn-calibrated').addEventListener('click', () => {
+            const pixels = parseInt(slider.value);
+            pixelsPerMM = pixels / CREDIT_CARD_WIDTH_MM;
+
+            document.getElementById('step-calibration').classList.add('hidden');
+            document.getElementById('step-instructions').classList.remove('hidden');
+        });
+
+        document.getElementById('btn-start').addEventListener('click', () => {
+            document.getElementById('step-instructions').classList.add('hidden');
+            document.getElementById('step-test').classList.remove('hidden');
+            startLevel(0);
+        });
+
+        // Test Logic
+        function startLevel(index) {
+            currentLevelIndex = index;
+            if (index >= levels.length) {
+                showResult(levels[levels.length - 1]); // Completed all
+                return;
+            }
+
+            const denominator = levels[index];
+            acuityLabel.textContent = `Level ${index + 1}`;
+
+            // Calculate height
+            // Height (mm) = Distance (mm) * tan(5 arcmin) * (denominator / 20) 
+            // Wait, standard formula: 20/20 letter subtends 5 arcmin at 20ft (6m).
+            // At 6m, height is 8.73mm.
+            // At 3m, height for 20/20 is 4.36mm.
+            // For 20/200, it's 10x larger.
+
+            // Height for 20/20 at 3m = 4.36mm
+            const baseHeightAt3m = 4.36;
+            const scaleFactor = denominator / 20;
+            const heightMM = baseHeightAt3m * scaleFactor;
+            const heightPx = heightMM * pixelsPerMM;
+
+            display.style.fontSize = heightPx + 'px';
+            display.style.height = heightPx + 'px'; // Ensure line-height doesn't mess it up
+            display.textContent = optotypes[Math.floor(Math.random() * optotypes.length)];
+        }
+
+        document.getElementById('btn-can-read').addEventListener('click', () => {
+            startLevel(currentLevelIndex + 1);
+        });
+
+        document.getElementById('btn-cant-read').addEventListener('click', () => {
+            // If they fail the first one, they are worse than 20/200
+            if (currentLevelIndex === 0) {
+                showResult("> 20/200");
+            } else {
+                // Their acuity is the PREVIOUS level they passed
+                showResult(levels[currentLevelIndex - 1]);
+            }
+        });
+
+        function showResult(score) {
+            document.getElementById('step-test').classList.add('hidden');
+            document.getElementById('step-results').classList.remove('hidden');
+            const text = typeof score === 'number' ? `20/${score}` : score;
+            document.getElementById('final-result').textContent = text;
+        }
+
+    </script>
+</body>
+
+</html>

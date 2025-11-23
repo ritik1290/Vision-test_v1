@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Hue Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        #sortable-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            margin: 3rem 0;
+            min-height: 60px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .color-block {
+            width: 50px;
+            height: 50px;
+            cursor: grab;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+
+        .color-block:active {
+            cursor: grabbing;
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .fixed-block {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 2px black;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="step-intro" class="test-container">
+            <h2>Color Hue Sort Test</h2>
+            <p>This test assesses your ability to distinguish subtle differences in color hues. It is similar to the
+                Farnsworth D-15 test.</p>
+            <p><strong>Instructions:</strong> Drag and drop the colored blocks to arrange them in a smooth gradient
+                order, starting from the fixed reference block on the left.</p>
+            <button id="btn-start" class="btn" style="margin-top: 1rem;">Start Test</button>
+        </div>
+
+        <div id="step-test" class="test-container hidden">
+            <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                <div id="start-ref" class="fixed-block">Start</div>
+                <div id="sortable-container">
+                    <!-- Blocks injected here -->
+                </div>
+                <div id="end-ref" class="fixed-block">End</div>
+            </div>
+
+            <button id="btn-check" class="btn" style="margin-top: 2rem;">Check Order</button>
+        </div>
+
+        <div id="step-result" class="test-container hidden">
+            <h2>Test Result</h2>
+            <div id="result-message"></div>
+            <div class="controls">
+                <a href="index.html" class="btn">Back to Tests</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 15 hues from Blue to Pink/Red
+        const correctHues = [
+            "#3399ff", "#3385ff", "#3370ff", "#335bff", "#3347ff",
+            "#4733ff", "#5c33ff", "#7033ff", "#8533ff", "#9933ff",
+            "#ad33ff", "#c233ff", "#d633ff", "#eb33ff", "#ff33eb"
+        ];
+
+        // Reference colors
+        const startColor = "#33ccff"; // Cyan-ish blue
+        const endColor = "#ff33cc";   // Pink
+
+        document.getElementById('start-ref').style.backgroundColor = startColor;
+        document.getElementById('end-ref').style.backgroundColor = endColor;
+
+        let draggedItem = null;
+
+        document.getElementById('btn-start').addEventListener('click', () => {
+            document.getElementById('step-intro').classList.add('hidden');
+            document.getElementById('step-test').classList.remove('hidden');
+            initGame();
+        });
+
+        function initGame() {
+            const container = document.getElementById('sortable-container');
+            container.innerHTML = '';
+
+            // Create shuffled list
+            const shuffled = [...correctHues].sort(() => Math.random() - 0.5);
+
+            shuffled.forEach(color => {
+                const div = document.createElement('div');
+                div.className = 'color-block';
+                div.style.backgroundColor = color;
+                div.draggable = true;
+                div.dataset.color = color;
+
+                div.addEventListener('dragstart', handleDragStart);
+                div.addEventListener('dragover', handleDragOver);
+                div.addEventListener('drop', handleDrop);
+                div.addEventListener('dragend', handleDragEnd);
+
+                container.appendChild(div);
+            });
+        }
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            this.style.opacity = '0.4';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            return false;
+        }
+
+        function handleDrop(e) {
+            e.stopPropagation();
+            if (draggedItem !== this) {
+                const container = document.getElementById('sortable-container');
+                const allItems = [...container.children];
+                const draggedIdx = allItems.indexOf(draggedItem);
+                const droppedIdx = allItems.indexOf(this);
+
+                if (draggedIdx < droppedIdx) {
+                    this.after(draggedItem);
+                } else {
+                    this.before(draggedItem);
+                }
+            }
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            this.style.opacity = '1';
+        }
+
+        document.getElementById('btn-check').addEventListener('click', () => {
+            const container = document.getElementById('sortable-container');
+            const currentOrder = [...container.children].map(div => div.dataset.color);
+
+            let errors = 0;
+            for (let i = 0; i < correctHues.length; i++) {
+                if (currentOrder[i] !== correctHues[i]) {
+                    errors++;
+                }
+            }
+
+            showResult(errors);
+        });
+
+        function showResult(errors) {
+            document.getElementById('step-test').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+            const msg = document.getElementById('result-message');
+
+            if (errors === 0) {
+                msg.innerHTML = `<h3 style="color: green;">Perfect Score!</h3><p>You have excellent color discrimination.</p>`;
+            } else if (errors < 4) {
+                msg.innerHTML = `<h3 style="color: blue;">Good Score</h3><p>You made ${errors} mistakes. Your color vision is likely normal.</p>`;
+            } else {
+                msg.innerHTML = `<h3 style="color: orange;">Low Score</h3><p>You made ${errors} mistakes. This might indicate some difficulty distinguishing hues.</p>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

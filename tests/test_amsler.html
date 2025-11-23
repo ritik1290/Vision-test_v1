@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amsler Grid Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        #amsler-grid {
+            width: 300px;
+            height: 300px;
+            margin: 2rem auto;
+            background-color: white;
+            background-image:
+                linear-gradient(#000 1px, transparent 1px),
+                linear-gradient(90deg, #000 1px, transparent 1px);
+            background-size: 15px 15px;
+            border: 2px solid #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #center-dot {
+            width: 8px;
+            height: 8px;
+            background: black;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .checklist {
+            text-align: left;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .checklist label {
+            display: block;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <div id="step-intro" class="test-container">
+            <h2>Amsler Grid Test</h2>
+            <p>This test helps detect problems in the macula (the center of the retina), such as Age-Related Macular
+                Degeneration (AMD).</p>
+
+            <div style="text-align: left; margin: 2rem auto; max-width: 500px;">
+                <h4>Instructions:</h4>
+                <ol>
+                    <li>Wear your reading glasses if you use them.</li>
+                    <li>Hold the screen about 12-15 inches (30-40 cm) away from your face.</li>
+                    <li>Cover one eye.</li>
+                    <li>Focus strictly on the <strong>center dot</strong>.</li>
+                    <li>While looking at the dot, notice the lines around it.</li>
+                </ol>
+            </div>
+
+            <button id="btn-start" class="btn">Show Grid</button>
+        </div>
+
+        <div id="step-test" class="test-container hidden">
+            <div id="amsler-grid">
+                <div id="center-dot"></div>
+            </div>
+
+            <p>Focus on the dot for 10 seconds.</p>
+
+            <div class="checklist">
+                <h4>Did you notice any of the following?</h4>
+                <label>
+                    <input type="checkbox" name="symptom" value="wavy"> Lines appearing wavy, blurred, or distorted.
+                </label>
+                <label>
+                    <input type="checkbox" name="symptom" value="missing"> Dark, empty, or missing areas in the grid.
+                </label>
+                <label>
+                    <input type="checkbox" name="symptom" value="corners"> Corners or sides of the grid disappearing.
+                </label>
+            </div>
+
+            <button id="btn-result" class="btn">See Results</button>
+        </div>
+
+        <div id="step-result" class="test-container hidden">
+            <h2>Test Result</h2>
+            <div id="result-message"></div>
+
+            <div class="controls">
+                <button onclick="location.reload()" class="btn-outline">Test Other Eye</button>
+                <a href="index.html" class="btn">Back to Tests</a>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 2rem; color: #666;">Disclaimer: This is a screening tool. Any
+                distortion requires immediate professional attention.</p>
+        </div>
+
+    </main>
+
+    <script>
+        document.getElementById('btn-start').addEventListener('click', () => {
+            document.getElementById('step-intro').classList.add('hidden');
+            document.getElementById('step-test').classList.remove('hidden');
+        });
+
+        document.getElementById('btn-result').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('input[name="symptom"]:checked');
+            const resultDiv = document.getElementById('result-message');
+
+            document.getElementById('step-test').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+
+            if (checkboxes.length > 0) {
+                resultDiv.innerHTML = `
+                    <h3 style="color: red; margin-bottom: 1rem;">Potential Issues Detected</h3>
+                    <p>You reported visual distortions. This can be a sign of macular degeneration or other retinal conditions.</p>
+                    <p><strong>Recommendation:</strong> Please schedule an appointment with an eye care professional immediately.</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <h3 style="color: green; margin-bottom: 1rem;">No Distortions Reported</h3>
+                    <p>Your central vision appears normal on this test.</p>
+                    <p>Remember to test your other eye!</p>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>

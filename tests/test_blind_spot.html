@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blind Spot Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .canvas-container {
+            position: relative;
+            height: 400px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin: 2rem 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%;
+        }
+
+        .fixation-cross {
+            font-size: 40px;
+            font-weight: bold;
+            cursor: default;
+        }
+
+        .blind-spot-dot {
+            width: 20px;
+            height: 20px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html" class="logo"><i class="fas fa-eye"></i> VisionHealth</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="intro-screen" class="test-container">
+            <h2>Blind Spot Mapping</h2>
+            <p>Every eye has a natural blind spot where the optic nerve connects to the retina. This test helps you find
+                yours.</p>
+            <button id="start-btn" class="btn" style="margin-top: 1rem;">Start Test</button>
+        </div>
+
+        <div id="test-screen" class="test-container hidden">
+            <h3>Instructions</h3>
+            <p>1. Close your <strong>LEFT eye</strong>.</p>
+            <p>2. Look strictly at the <strong>Cross (+)</strong> on the left with your Right eye.</p>
+            <p>3. Move your head closer or further from the screen (approx 10-15 inches) until the <strong>Black
+                    Dot</strong> disappears.</p>
+
+            <div class="canvas-container">
+                <div class="fixation-cross">+</div>
+                <div class="blind-spot-dot"></div>
+            </div>
+
+            <div class="controls">
+                <p>Did the dot disappear?</p>
+                <button class="btn" onclick="showResult(true)">Yes, it disappeared!</button>
+                <button class="btn-outline" onclick="showResult(false)">No, I can always see it</button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="test-container hidden">
+            <h2>Test Complete</h2>
+            <div id="result-msg" style="margin: 2rem 0; font-size: 1.2rem;"></div>
+            <a href="index.html" class="btn">Back to Tests</a>
+        </div>
+    </main>
+
+    <script>
+        const introScreen = document.getElementById('intro-screen');
+        const testScreen = document.getElementById('test-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const resultMsg = document.getElementById('result-msg');
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            introScreen.classList.add('hidden');
+            testScreen.classList.remove('hidden');
+        });
+
+        function showResult(found) {
+            testScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            if (found) {
+                resultMsg.innerHTML = "<p style='color: green; font-weight: bold;'>Success!</p><p>You found your physiological blind spot. This is completely normal and indicates your optic nerve position is typical.</p>";
+            } else {
+                resultMsg.innerHTML = "<p style='color: orange;'>Not Found</p><p>You might need to adjust your distance or ensure you are not moving your eye from the cross. Try moving slower next time.</p>";
+            }
+        }
+    </script>
+</body>
+
+</html>

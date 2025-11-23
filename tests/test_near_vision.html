@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Near Vision Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .reading-card {
+            text-align: left;
+            margin: 2rem auto;
+            max-width: 600px;
+            padding: 2rem;
+            border: 1px solid #eee;
+            background: #fff;
+        }
+
+        .text-block {
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="step-intro" class="test-container">
+            <h2>Near Vision Test</h2>
+            <p>This test checks your ability to read small print at a close distance, which can help detect Presbyopia
+                (age-related farsightedness).</p>
+            <ul style="text-align: left; max-width: 500px; margin: 1rem auto;">
+                <li>Hold your phone or sit about <strong>40 cm (16 inches)</strong> from the screen.</li>
+                <li>If you wear reading glasses, put them on.</li>
+                <li>Try to read the paragraphs below, starting from the largest.</li>
+            </ul>
+            <button id="btn-start" class="btn">Start Test</button>
+        </div>
+
+        <div id="step-test" class="test-container hidden">
+            <div class="reading-card">
+                <div class="text-block" style="font-size: 24px;">
+                    <strong>J10 (Large Print)</strong><br>
+                    The quick brown fox jumps over the lazy dog. Vision health is important for everyone.
+                </div>
+                <div class="text-block" style="font-size: 18px;">
+                    <strong>J7 (Medium Print)</strong><br>
+                    Regular eye exams are the best way to protect your eyesight. Many eye diseases have no early warning
+                    signs.
+                </div>
+                <div class="text-block" style="font-size: 14px;">
+                    <strong>J5 (Newspaper Print)</strong><br>
+                    Eating a diet rich in fruits and vegetables, particularly dark leafy greens like spinach and kale,
+                    is important for keeping your eyes healthy.
+                </div>
+                <div class="text-block" style="font-size: 10px;">
+                    <strong>J3 (Small Print)</strong><br>
+                    Research has linked smoking to an increased risk of developing age-related macular degeneration,
+                    cataract, and optic nerve damage, all of which can lead to blindness.
+                </div>
+                <div class="text-block" style="font-size: 8px;">
+                    <strong>J1 (Very Small Print)</strong><br>
+                    If you are having trouble reading this text at 40cm, you may be experiencing presbyopia or need a
+                    new prescription. Please consult an eye care professional.
+                </div>
+            </div>
+
+            <h3>Which was the smallest text you could read comfortably?</h3>
+            <div class="controls" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <button class="btn-outline" onclick="showResult('J10')">J10 Only</button>
+                <button class="btn-outline" onclick="showResult('J7')">J7</button>
+                <button class="btn-outline" onclick="showResult('J5')">J5 (Normal)</button>
+                <button class="btn-outline" onclick="showResult('J3')">J3</button>
+                <button class="btn" onclick="showResult('J1')">J1 (Excellent)</button>
+            </div>
+        </div>
+
+        <div id="step-result" class="test-container hidden">
+            <h2>Test Result</h2>
+            <div id="result-message"></div>
+            <div class="controls" style="margin-top: 2rem;">
+                <a href="index.html" class="btn">Back to Tests</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('btn-start').addEventListener('click', () => {
+            document.getElementById('step-intro').classList.add('hidden');
+            document.getElementById('step-test').classList.remove('hidden');
+        });
+
+        function showResult(level) {
+            document.getElementById('step-test').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+            const msg = document.getElementById('result-message');
+
+            if (level === 'J1' || level === 'J3') {
+                msg.innerHTML = `<h3 style="color: green;">Excellent Near Vision</h3><p>You can read fine print comfortably.</p>`;
+            } else if (level === 'J5') {
+                msg.innerHTML = `<h3 style="color: blue;">Normal Near Vision</h3><p>You can read standard newspaper-sized print.</p>`;
+            } else {
+                msg.innerHTML = `<h3 style="color: orange;">Reduced Near Vision</h3><p>You struggled with standard print. This is common with Presbyopia. Consider reading glasses or an eye exam.</p>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

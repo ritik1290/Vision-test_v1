@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astigmatism Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        #clock-dial {
+            width: 400px;
+            height: 400px;
+            margin: 2rem auto;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="step-intro" class="test-container">
+            <h2>Astigmatism Clock Dial Test</h2>
+            <p>This test helps detect astigmatism, a condition where the eye focuses light unevenly, causing blurred
+                vision.</p>
+            <ul style="text-align: left; max-width: 500px; margin: 1rem auto;">
+                <li>Sit about 1 meter (3-4 feet) away from the screen.</li>
+                <li>Cover one eye with your hand.</li>
+                <li>Focus on the center of the dial.</li>
+                <li>Observe the lines radiating outwards.</li>
+            </ul>
+            <button id="btn-start" class="btn">Start Test</button>
+        </div>
+
+        <div id="step-test" class="test-container hidden">
+            <!-- SVG Clock Dial -->
+            <svg id="clock-dial" viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="98" fill="white" stroke="none" />
+                <!-- Lines -->
+                <g stroke="black" stroke-width="2">
+                    <!-- 12 to 6 -->
+                    <line x1="100" y1="10" x2="100" y2="190" />
+                    <!-- 1 to 7 -->
+                    <line x1="145" y1="22" x2="55" y2="178" />
+                    <!-- 2 to 8 -->
+                    <line x1="178" y1="55" x2="22" y2="145" />
+                    <!-- 3 to 9 -->
+                    <line x1="190" y1="100" x2="10" y2="100" />
+                    <!-- 4 to 10 -->
+                    <line x1="178" y1="145" x2="22" y2="55" />
+                    <!-- 5 to 11 -->
+                    <line x1="145" y1="178" x2="55" y2="22" />
+                </g>
+                <!-- Numbers (Optional, simplified for now) -->
+            </svg>
+
+            <h3>Do all the lines look equally black and sharp?</h3>
+            <div class="controls">
+                <button id="btn-yes" class="btn">Yes, all equal</button>
+                <button id="btn-no" class="btn-outline">No, some are darker/sharper</button>
+            </div>
+        </div>
+
+        <div id="step-result" class="test-container hidden">
+            <h2>Test Result</h2>
+            <div id="result-message"></div>
+            <div class="controls">
+                <button onclick="location.reload()" class="btn-outline">Test Other Eye</button>
+                <a href="index.html" class="btn">Back to Tests</a>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 2rem; color: #666;">Disclaimer: This is a screening tool. Diagnosis
+                requires a professional exam.</p>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('btn-start').addEventListener('click', () => {
+            document.getElementById('step-intro').classList.add('hidden');
+            document.getElementById('step-test').classList.remove('hidden');
+        });
+
+        document.getElementById('btn-yes').addEventListener('click', () => {
+            showResult(false);
+        });
+
+        document.getElementById('btn-no').addEventListener('click', () => {
+            showResult(true);
+        });
+
+        function showResult(hasAstigmatism) {
+            document.getElementById('step-test').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+            const msgDiv = document.getElementById('result-message');
+
+            if (hasAstigmatism) {
+                msgDiv.innerHTML = `
+                    <h3 style="color: orange; margin-bottom: 1rem;">Possible Astigmatism</h3>
+                    <p>If some lines appeared darker or sharper than others, it may indicate astigmatism.</p>
+                    <p>We recommend consulting an eye care professional for a comprehensive exam.</p>
+                `;
+            } else {
+                msgDiv.innerHTML = `
+                    <h3 style="color: green; margin-bottom: 1rem;">No Signs Detected</h3>
+                    <p>You reported that all lines appeared equally sharp. This suggests no significant astigmatism.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+
+</html>

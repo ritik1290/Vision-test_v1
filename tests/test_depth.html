@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depth Perception Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .target-circle {
+            width: 50px;
+            height: 50px;
+            background: #e74c3c;
+            border-radius: 50%;
+            margin: 3rem auto;
+        }
+
+        .instruction-step {
+            margin: 2rem 0;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html" class="logo"><i class="fas fa-eye"></i> VisionHealth</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="intro-screen" class="test-container">
+            <h2>Depth Perception (Stereopsis) Check</h2>
+            <p>This test uses the "Finger-Framing" technique to check if your eyes are working together to create depth.
+            </p>
+            <button id="start-btn" class="btn" style="margin-top: 1rem;">Start Test</button>
+        </div>
+
+        <div id="test-screen" class="test-container hidden">
+            <div class="target-circle"></div>
+
+            <div class="instruction-step">
+                <h3>Step 1: Focus on the Red Circle</h3>
+                <p>Sit about 2 feet from the screen. Keep both eyes open and focused on the red circle above.</p>
+            </div>
+
+            <div class="instruction-step">
+                <h3>Step 2: Raise your Finger</h3>
+                <p>Hold your index finger up about 6 inches in front of your nose, directly in line with the red circle.
+                </p>
+            </div>
+
+            <div class="instruction-step">
+                <h3>Step 3: Observe</h3>
+                <p>While keeping your focus on the <strong>Red Circle</strong>, notice your finger.</p>
+                <p><strong>What do you see?</strong></p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                    <button class="btn-outline" onclick="showResult('two_fingers')">I see TWO transparent
+                        fingers</button>
+                    <button class="btn-outline" onclick="showResult('one_finger')">I see only ONE finger</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="result-screen" class="test-container hidden">
+            <h2>Result</h2>
+            <div id="result-msg" style="margin: 2rem 0; font-size: 1.2rem;"></div>
+            <a href="index.html" class="btn">Back to Tests</a>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('test-screen').classList.remove('hidden');
+        });
+
+        function showResult(choice) {
+            document.getElementById('test-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const msg = document.getElementById('result-msg');
+            if (choice === 'two_fingers') {
+                msg.innerHTML = "<p style='color: green; font-weight: bold;'>Good Depth Perception</p><p>Seeing two 'ghost' fingers while focusing on a distant object is a sign of normal binocular vision (Physiological Diplopia).</p>";
+            } else {
+                msg.innerHTML = "<p style='color: orange; font-weight: bold;'>Potential Suppression</p><p>Seeing only one finger might mean your brain is ignoring (suppressing) the image from one eye. This can happen in conditions like Amblyopia or Strabismus.</p>";
+            }
+        }
+    </script>
+</body>
+
+</html>

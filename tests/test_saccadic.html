@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saccadic Eye Movement - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        /* Prevent scrolling during test */
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        #game-area {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #f0f0f0;
+            z-index: 100;
+            cursor: crosshair;
+        }
+
+        .target {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transition: all 0.1s ease;
+            /* Fast movement */
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .stats-overlay {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 101;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html" class="logo"><i class="fas fa-eye"></i> VisionHealth</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="intro-screen" class="test-container">
+            <h2>Saccadic Eye Movement Test</h2>
+            <p>Test your eye's ability to quickly jump between targets (saccades). This is crucial for reading and
+                sports.</p>
+            <p><strong>Instructions:</strong> Click the blue dots as fast as you can as they appear on the screen.</p>
+            <button id="start-btn" class="btn" style="margin-top: 1rem;">Start Test (30s)</button>
+        </div>
+
+        <div id="game-area" class="hidden">
+            <div class="stats-overlay">
+                Score: <span id="score">0</span><br>
+                Time: <span id="time">30</span>
+            </div>
+            <div id="target" class="target"></div>
+        </div>
+
+        <div id="result-screen" class="test-container hidden" style="position: relative; z-index: 200;">
+            <h2>Test Complete</h2>
+            <h3>Your Score: <span id="final-score">0</span></h3>
+            <p id="performance-msg"></p>
+            <a href="index.html" class="btn">Back to Tests</a>
+            <button onclick="location.reload()" class="btn-outline">Retry</button>
+        </div>
+    </main>
+
+    <script>
+        let score = 0;
+        let timeLeft = 30;
+        let timerInterval;
+        const target = document.getElementById('target');
+        const gameArea = document.getElementById('game-area');
+        const scoreDisplay = document.getElementById('score');
+        const timeDisplay = document.getElementById('time');
+
+        document.getElementById('start-btn').addEventListener('click', startGame);
+        target.addEventListener('click', hitTarget);
+
+        function startGame() {
+            document.getElementById('intro-screen').classList.add('hidden');
+            gameArea.classList.remove('hidden');
+            moveTarget();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timeDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        function hitTarget() {
+            score++;
+            scoreDisplay.textContent = score;
+            moveTarget();
+        }
+
+        function moveTarget() {
+            const x = Math.random() * (window.innerWidth - 60);
+            const y = Math.random() * (window.innerHeight - 60);
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+
+            // Random color change for visual engagement
+            const colors = ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6'];
+            target.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            gameArea.classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            document.getElementById('final-score').textContent = score;
+
+            const msg = document.getElementById('performance-msg');
+            if (score > 30) {
+                msg.textContent = "Excellent! Your saccadic reaction time is very fast.";
+                msg.style.color = "green";
+            } else if (score > 15) {
+                msg.textContent = "Average. Your eye tracking speed is normal.";
+                msg.style.color = "orange";
+            } else {
+                msg.textContent = "Below Average. You might be experiencing fatigue.";
+                msg.style.color = "red";
+            }
+        }
+    </script>
+</body>
+
+</html>

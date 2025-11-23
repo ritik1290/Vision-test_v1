@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convergence Insufficiency Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .animation-demo {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .pen-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            animation: movePen 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes movePen {
+            0% {
+                transform: scale(0.5) translateY(0);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1.5) translateY(50px);
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html" class="logo"><i class="fas fa-eye"></i> VisionHealth</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="intro-screen" class="test-container">
+            <h2>Convergence Insufficiency (Pencil Push-Up)</h2>
+            <p>This test measures your "Near Point of Convergence" (NPC) - how close you can hold an object before your
+                eyes stop working together.</p>
+            <button id="start-btn" class="btn" style="margin-top: 1rem;">Start Guide</button>
+        </div>
+
+        <div id="test-screen" class="test-container hidden">
+            <h3>The Pencil Push-Up Test</h3>
+            <div class="animation-demo">
+                <i class="fas fa-pen pen-icon"></i>
+            </div>
+
+            <div style="text-align: left; margin: 0 auto; max-width: 600px;">
+                <p><strong>1.</strong> Hold a pen or pencil at arm's length in front of your nose.</p>
+                <p><strong>2.</strong> Focus on the tip of the pen.</p>
+                <p><strong>3.</strong> Slowly bring the pen closer to your nose, keeping it in focus.</p>
+                <p><strong>4.</strong> Stop when the pen tip splits into <strong>TWO</strong> images (double vision).
+                </p>
+            </div>
+
+            <div class="input-section" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                <p>How close was the pen when it doubled?</p>
+                <button class="btn-outline" onclick="showResult('close')">Less than 3 inches (Normal)</button>
+                <button class="btn-outline" onclick="showResult('far')">More than 4-5 inches (Receded)</button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="test-container hidden">
+            <h2>Result</h2>
+            <div id="result-msg" style="margin: 2rem 0; font-size: 1.2rem;"></div>
+            <a href="index.html" class="btn">Back to Tests</a>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('test-screen').classList.remove('hidden');
+        });
+
+        function showResult(dist) {
+            document.getElementById('test-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const msg = document.getElementById('result-msg');
+            if (dist === 'close') {
+                msg.innerHTML = "<p style='color: green; font-weight: bold;'>Normal Convergence</p><p>Your eyes are working well together at near distances.</p>";
+            } else {
+                msg.innerHTML = "<p style='color: orange; font-weight: bold;'>Convergence Insufficiency Signs</p><p>Struggling to maintain a single image close up is a common sign of CI. Eye exercises (like this one!) can often help.</p>";
+            }
+        }
+    </script>
+</body>
+
+</html>

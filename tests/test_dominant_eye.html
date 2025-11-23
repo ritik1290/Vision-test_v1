@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominant Eye Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .step-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .step-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .triangle-demo {
+            width: 200px;
+            height: 200px;
+            background: #ddd;
+            margin: 1rem auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .triangle-hands {
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Dominant_eye_test.svg/1200px-Dominant_eye_test.svg.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html" class="logo"><i class="fas fa-eye"></i> VisionHealth</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="intro-screen" class="test-container">
+            <h2>Dominant Eye Test</h2>
+            <p>Determine which of your eyes is the "dominant" or sighting eye. This is important for sports,
+                photography, and understanding your vision.</p>
+            <button id="start-btn" class="btn" style="margin-top: 1rem;">Start Test</button>
+        </div>
+
+        <div id="test-screen" class="test-container hidden">
+            <h2>Follow These Steps</h2>
+
+            <div class="step-card">
+                <h3>Step 1: Create a Triangle</h3>
+                <p>Extend your arms fully in front of you. Bring your hands together to form a small triangular opening
+                    between your thumbs and forefingers.</p>
+            </div>
+
+            <div class="step-card">
+                <h3>Step 2: Center the Target</h3>
+                <p>With <strong>both eyes open</strong>, look through the triangle and center the red dot below inside
+                    the opening.</p>
+                <div style="margin: 2rem; text-align: center;">
+                    <div style="width: 30px; height: 30px; background: red; border-radius: 50%; display: inline-block;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3>Step 3: Close Left Eye</h3>
+                <p>Close your <strong>Left Eye</strong>. Does the red dot stay centered or move out of view?</p>
+                <button class="btn-outline" onclick="recordResult('left_closed_stayed')">It Stayed Centered</button>
+                <button class="btn-outline" onclick="recordResult('left_closed_moved')">It Moved / Disappeared</button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="test-container hidden">
+            <h2>Your Result</h2>
+            <div id="result-content"
+                style="font-size: 1.5rem; margin: 2rem 0; font-weight: bold; color: var(--primary-color);"></div>
+            <p>Your dominant eye is the one that keeps the object centered when the other eye is closed.</p>
+            <a href="index.html" class="btn">Back to Tests</a>
+        </div>
+    </main>
+
+    <script>
+        const introScreen = document.getElementById('intro-screen');
+        const testScreen = document.getElementById('test-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const resultContent = document.getElementById('result-content');
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            introScreen.classList.add('hidden');
+            testScreen.classList.remove('hidden');
+        });
+
+        function recordResult(action) {
+            testScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            if (action === 'left_closed_stayed') {
+                resultContent.textContent = "Right Eye Dominant";
+                resultContent.style.color = "#2ecc71";
+            } else {
+                resultContent.textContent = "Left Eye Dominant";
+                resultContent.style.color = "#3498db";
+            }
+        }
+    </script>
+</body>
+
+</html>

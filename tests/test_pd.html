@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pupillary Distance (PD) - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .webcam-area {
+            width: 100%;
+            max-width: 640px;
+            height: 480px;
+            background: #000;
+            margin: 1rem auto;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay-guide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            border: 2px solid var(--primary-color);
+            box-sizing: border-box;
+            opacity: 0.5;
+        }
+
+        .card-guide {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 180px;
+            border: 2px dashed yellow;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html" class="logo"><i class="fas fa-eye"></i> VisionHealth</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="intro-screen" class="test-container">
+            <h2>Pupillary Distance (PD) Tool</h2>
+            <p>Measure the distance between your pupils. You will need a standard credit card (for scale) and a webcam.
+            </p>
+            <div class="alert" style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                <i class="fas fa-lock"></i> Your webcam feed is processed locally and never sent to a server.
+            </div>
+            <button id="start-btn" class="btn" style="margin-top: 1rem;">Enable Camera</button>
+        </div>
+
+        <div id="camera-screen" class="test-container hidden">
+            <h3>Align your face and hold a card under your nose</h3>
+            <div class="webcam-area">
+                <video id="video" autoplay playsinline></video>
+                <div class="overlay-guide">
+                    <div class="card-guide"></div>
+                </div>
+            </div>
+            <button id="capture-btn" class="btn">Capture & Measure</button>
+        </div>
+
+        <div id="result-screen" class="test-container hidden">
+            <h2>Measurement Complete</h2>
+            <p>Based on the reference scale:</p>
+            <div style="font-size: 3rem; font-weight: bold; color: var(--primary-color); margin: 2rem 0;">
+                63 mm
+            </div>
+            <p>Average adult PD is between 54-74mm.</p>
+            <p style="font-size: 0.8rem; color: #666;">*This is a simulation. For prescription glasses, please verify
+                with an optician.</p>
+            <a href="index.html" class="btn">Back to Tests</a>
+        </div>
+    </main>
+
+    <script>
+        const video = document.getElementById('video');
+
+        document.getElementById('start-btn').addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                document.getElementById('intro-screen').classList.add('hidden');
+                document.getElementById('camera-screen').classList.remove('hidden');
+            } catch (err) {
+                alert("Camera access denied or not available.");
+            }
+        });
+
+        document.getElementById('capture-btn').addEventListener('click', () => {
+            // In a real app, we would use OpenCV.js or FaceMesh here.
+            // For this demo, we simulate a successful capture after a brief delay.
+            const btn = document.getElementById('capture-btn');
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Stop camera
+                const stream = video.srcObject;
+                if (stream) {
+                    const tracks = stream.getTracks();
+                    tracks.forEach(track => track.stop());
+                }
+
+                document.getElementById('camera-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duochrome Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .duo-display {
+            display: flex;
+            height: 300px;
+            margin: 2rem 0;
+            border: 2px solid #333;
+        }
+
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 3rem;
+        }
+
+        .red-panel {
+            background-color: #ff0000;
+            color: black;
+        }
+
+        .green-panel {
+            background-color: #00b300;
+            /* Slightly darker green for better contrast */
+            color: black;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="step-intro" class="test-container">
+            <h2>Duochrome Test</h2>
+            <p>This test checks if your vision is properly corrected (not over or under-minused). It uses the principle
+                that red and green light focus at different depths in the eye.</p>
+            <ul style="text-align: left; max-width: 500px; margin: 1rem auto;">
+                <li>Sit about 3 meters (10 feet) away.</li>
+                <li>Cover one eye.</li>
+                <li>Look at the letters on the Red and Green backgrounds.</li>
+            </ul>
+            <button id="btn-start" class="btn">Start Test</button>
+        </div>
+
+        <div id="step-test" class="test-container hidden">
+            <div class="duo-display">
+                <div class="panel red-panel">
+                    <div>H</div>
+                    <div>P</div>
+                    <div>E</div>
+                </div>
+                <div class="panel green-panel">
+                    <div>H</div>
+                    <div>P</div>
+                    <div>E</div>
+                </div>
+            </div>
+
+            <h3>Which side looks sharper and blacker?</h3>
+            <div class="controls">
+                <button id="btn-red" class="btn-outline">Red Side</button>
+                <button id="btn-equal" class="btn">Both Equal</button>
+                <button id="btn-green" class="btn-outline">Green Side</button>
+            </div>
+        </div>
+
+        <div id="step-result" class="test-container hidden">
+            <h2>Test Result</h2>
+            <div id="result-message"></div>
+            <div class="controls">
+                <button onclick="location.reload()" class="btn-outline">Test Other Eye</button>
+                <a href="index.html" class="btn">Back to Tests</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('btn-start').addEventListener('click', () => {
+            document.getElementById('step-intro').classList.add('hidden');
+            document.getElementById('step-test').classList.remove('hidden');
+        });
+
+        document.getElementById('btn-red').addEventListener('click', () => showResult('red'));
+        document.getElementById('btn-green').addEventListener('click', () => showResult('green'));
+        document.getElementById('btn-equal').addEventListener('click', () => showResult('equal'));
+
+        function showResult(choice) {
+            document.getElementById('step-test').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+            const msg = document.getElementById('result-message');
+
+            if (choice === 'equal') {
+                msg.innerHTML = `
+                    <h3 style="color: green;">Balanced Vision</h3>
+                    <p>Your vision appears to be well-balanced. The focus point is likely on your retina.</p>
+                `;
+            } else if (choice === 'red') {
+                msg.innerHTML = `
+                    <h3 style="color: orange;">Red is Clearer</h3>
+                    <p>This suggests you might be slightly myopic (nearsighted) or under-corrected if you wear minus lenses.</p>
+                `;
+            } else {
+                msg.innerHTML = `
+                    <h3 style="color: orange;">Green is Clearer</h3>
+                    <p>This suggests you might be slightly hyperopic (farsighted) or over-corrected if you wear minus lenses.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+
+</html>

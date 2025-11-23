@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrast Sensitivity Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        #contrast-display {
+            font-family: sans-serif;
+            font-size: 100px;
+            font-weight: bold;
+            margin: 3rem 0;
+            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .contrast-letter {
+            transition: color 0.3s;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="step-intro" class="test-container">
+            <h2>Contrast Sensitivity Test</h2>
+            <p>This test measures your ability to distinguish between finer increments of light and dark.</p>
+            <p>You will see letters that get progressively lighter. Select the letter you see.</p>
+            <button id="btn-start" class="btn" style="margin-top: 1rem;">Start Test</button>
+        </div>
+
+        <div id="step-test" class="test-container hidden">
+            <div id="contrast-display">
+                <!-- Letter injected here -->
+            </div>
+
+            <p>Which letter do you see?</p>
+            <div id="options-container" class="controls">
+                <!-- Options injected here -->
+            </div>
+            <button id="btn-cant-see" class="btn-outline" style="margin-top: 1rem;">I can't see anything</button>
+        </div>
+
+        <div id="step-result" class="test-container hidden">
+            <h2>Test Result</h2>
+            <div id="result-message"></div>
+            <div class="controls">
+                <a href="index.html" class="btn">Back to Tests</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const levels = [
+            { opacity: 1.0, score: "Normal" },
+            { opacity: 0.5, score: "Normal" },
+            { opacity: 0.25, score: "Normal" },
+            { opacity: 0.1, score: "Good" },
+            { opacity: 0.05, score: "Good" },
+            { opacity: 0.025, score: "Excellent" },
+            { opacity: 0.015, score: "Superior" }
+        ];
+
+        const letters = ['C', 'D', 'H', 'K', 'N', 'O', 'R', 'S', 'V', 'Z'];
+        let currentLevel = 0;
+        let currentLetter = '';
+
+        document.getElementById('btn-start').addEventListener('click', () => {
+            document.getElementById('step-intro').classList.add('hidden');
+            document.getElementById('step-test').classList.remove('hidden');
+            loadLevel(0);
+        });
+
+        function loadLevel(index) {
+            if (index >= levels.length) {
+                showResult("Superior");
+                return;
+            }
+
+            currentLevel = index;
+            currentLetter = letters[Math.floor(Math.random() * letters.length)];
+
+            const display = document.getElementById('contrast-display');
+            display.innerHTML = `<span class="contrast-letter" style="color: rgba(0,0,0,${levels[index].opacity})">${currentLetter}</span>`;
+
+            // Generate options (1 correct + 3 random)
+            const options = [currentLetter];
+            while (options.length < 4) {
+                const r = letters[Math.floor(Math.random() * letters.length)];
+                if (!options.includes(r)) options.push(r);
+            }
+            options.sort(() => Math.random() - 0.5);
+
+            const optsContainer = document.getElementById('options-container');
+            optsContainer.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-outline';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(opt);
+                optsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(answer) {
+            if (answer === currentLetter) {
+                loadLevel(currentLevel + 1);
+            } else {
+                // Failed at this level, score is previous level
+                const score = currentLevel > 0 ? levels[currentLevel - 1].score : "Poor";
+                showResult(score);
+            }
+        }
+
+        document.getElementById('btn-cant-see').addEventListener('click', () => {
+            const score = currentLevel > 0 ? levels[currentLevel - 1].score : "Poor";
+            showResult(score);
+        });
+
+        function showResult(score) {
+            document.getElementById('step-test').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+
+            const msgDiv = document.getElementById('result-message');
+            let color = score === "Poor" ? "orange" : "green";
+
+            msgDiv.innerHTML = `
+                <h3 style="color: ${color}; margin-bottom: 1rem;">Contrast Sensitivity: ${score}</h3>
+                <p>You were able to distinguish letters down to level ${currentLevel}.</p>
+            `;
+        }
+    </script>
+</body>
+
+</html>

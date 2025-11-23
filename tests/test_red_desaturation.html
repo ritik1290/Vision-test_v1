@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Desaturation Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .red-box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            margin: 2rem auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider-container {
+            width: 80%;
+            margin: 2rem auto;
+        }
+
+        input[type=range] {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html" class="logo"><i class="fas fa-eye"></i> VisionHealth</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="intro-screen" class="test-container">
+            <h2>Red Desaturation Test</h2>
+            <p>This test checks for potential optic nerve issues by comparing how bright the color "Red" looks to each
+                eye.</p>
+            <button id="start-btn" class="btn" style="margin-top: 1rem;">Start Test</button>
+        </div>
+
+        <div id="step1-screen" class="test-container hidden">
+            <h3>Step 1: Reference Eye</h3>
+            <p>Cover your <strong>Left Eye</strong>. Look at the red square below with your <strong>Right Eye</strong>.
+            </p>
+            <div class="red-box"></div>
+            <p>Assume this red is "100% Red" or "100 dollars worth of Red".</p>
+            <button class="btn" onclick="goToStep2()">Next</button>
+        </div>
+
+        <div id="step2-screen" class="test-container hidden">
+            <h3>Step 2: Compare</h3>
+            <p>Now cover your <strong>Right Eye</strong> and look with your <strong>Left Eye</strong>.</p>
+            <div class="red-box"></div>
+            <p>Does the red look the same, or is it washed out (pinkish/dull)?</p>
+
+            <div class="slider-container">
+                <label>If Right eye was 100%, what percentage is the Left eye?</label>
+                <input type="range" id="saturation-slider" min="0" max="100" value="100"
+                    oninput="updateSliderVal(this.value)">
+                <h2 id="slider-val">100%</h2>
+            </div>
+
+            <button class="btn" onclick="showResult()">Submit</button>
+        </div>
+
+        <div id="result-screen" class="test-container hidden">
+            <h2>Result</h2>
+            <div id="result-msg" style="margin: 2rem 0; font-size: 1.2rem;"></div>
+            <a href="index.html" class="btn">Back to Tests</a>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('step1-screen').classList.remove('hidden');
+        });
+
+        function goToStep2() {
+            document.getElementById('step1-screen').classList.add('hidden');
+            document.getElementById('step2-screen').classList.remove('hidden');
+        }
+
+        function updateSliderVal(val) {
+            document.getElementById('slider-val').textContent = val + "%";
+        }
+
+        function showResult() {
+            const val = parseInt(document.getElementById('saturation-slider').value);
+            document.getElementById('step2-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const msg = document.getElementById('result-msg');
+            if (val >= 90) {
+                msg.innerHTML = "<p style='color: green; font-weight: bold;'>Normal</p><p>Both eyes perceive red with similar intensity.</p>";
+            } else {
+                msg.innerHTML = "<p style='color: orange; font-weight: bold;'>Possible Desaturation</p><p>A significant difference in color intensity between eyes can indicate optic nerve issues. Please consult an ophthalmologist.</p>";
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Blindness Test - Vision Health Portal</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .ishihara-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin: 2rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .option-btn {
+            padding: 1rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background: var(--background-color);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary-color);
+            background: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <i class="fas fa-eye"></i> VisionHealth
+        </a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html" class="active">Vision Tests</a></li>
+                <li><a href="../innovations.html">Innovations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <div id="start-screen" class="test-container">
+            <h2>Ishihara Color Blindness Test</h2>
+            <p>This test consists of a series of colored plates. Each plate contains a number embedded in a pattern of
+                dots.</p>
+            <p>Please ensure your screen brightness is high and "Night Mode" or "Blue Light Filter" is turned OFF.</p>
+            <button id="btn-start" class="btn" style="margin-top: 2rem;">Start Test</button>
+        </div>
+
+        <div id="quiz-screen" class="test-container hidden">
+            <h3 id="question-number">Plate 1 of 5</h3>
+            <img id="plate-img" src="" alt="Ishihara Plate" class="ishihara-img">
+            <p>What number do you see?</p>
+            <div id="options" class="options-grid">
+                <!-- Options injected via JS -->
+            </div>
+        </div>
+
+        <div id="result-screen" class="test-container hidden">
+            <h2>Test Complete</h2>
+            <div id="score-display" style="margin: 2rem 0;">
+                <!-- Results injected via JS -->
+            </div>
+            <div class="controls">
+                <a href="index.html" class="btn-outline">Back to Tests</a>
+                <button onclick="window.print()" class="btn">Print Result</button>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 2rem; color: #666;">Disclaimer: This is a screening tool. Diagnosis
+                of color blindness requires professional testing.</p>
+        </div>
+
+    </main>
+
+    <script>
+        const plates = [
+            {
+                // Plate 1: Everyone should see 12
+                src: "images/Ishihara_1-12.png",
+                correct: 12,
+                options: [12, 8, 3, "Nothing"],
+                type: "control"
+            },
+            {
+                // Plate 2: Number 6
+                src: "images/Ishihara_2-6.PNG",
+                correct: 6,
+                deficiency: 5,
+                options: [6, 5, 8, "Nothing"],
+                type: "test"
+            },
+            {
+                // Plate 3: Number 42
+                src: "images/Ishihara_3-42.PNG",
+                correct: 42,
+                deficiency: 2,
+                options: [42, 4, 2, "Nothing"],
+                type: "test"
+            },
+            {
+                // Plate 4: Number 2 (The "difficult" one)
+                src: "images/Ishihara_4-2.PNG",
+                correct: 2,
+                deficiency: "Nothing",
+                options: [2, 5, 6, "Nothing"],
+                type: "test"
+            },
+            {
+                // Plate 5: Number 74
+                src: "images/ishihara_9-74.png",
+                correct: 74,
+                deficiency: 21,
+                options: [74, 21, 71, "Nothing"],
+                type: "test"
+            }
+        ];
+
+        let currentPlate = 0;
+        let score = 0;
+        let deficiencySigns = 0;
+
+        const startBtn = document.getElementById('btn-start');
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const plateImg = document.getElementById('plate-img');
+        const optionsDiv = document.getElementById('options');
+        const questionNum = document.getElementById('question-number');
+
+        startBtn.addEventListener('click', () => {
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            loadPlate(0);
+        });
+
+        function loadPlate(index) {
+            if (index >= plates.length) {
+                showResults();
+                return;
+            }
+
+            currentPlate = index;
+            const plate = plates[index];
+
+            questionNum.textContent = `Plate ${index + 1} of ${plates.length}`;
+            plateImg.src = plate.src;
+
+            optionsDiv.innerHTML = '';
+            // Shuffle options slightly or keep fixed? Fixed is easier for now, but let's randomize order
+            const shuffledOptions = [...plate.options].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt;
+                btn.onclick = () => handleAnswer(opt);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(answer) {
+            const plate = plates[currentPlate];
+
+            if (answer === plate.correct) {
+                score++;
+            } else if (answer === plate.deficiency) {
+                deficiencySigns++;
+            }
+
+            loadPlate(currentPlate + 1);
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            const display = document.getElementById('score-display');
+            let message = "";
+            let color = "";
+
+            if (score === plates.length) {
+                message = "Normal Color Vision";
+                color = "green";
+            } else if (deficiencySigns > 0) {
+                message = "Possible Red-Green Color Deficiency";
+                color = "orange";
+            } else {
+                message = "Inconclusive / Low Color Discrimination";
+                color = "gray";
+            }
+
+            display.innerHTML = `
+                <h3 style="color: ${color}; font-size: 2rem; margin-bottom: 1rem;">${message}</h3>
+                <p>You correctly identified ${score} out of ${plates.length} plates.</p>
+            `;
+        }
+
+        // Expose loadPlate to window for testing/debugging
+        window.loadPlate = loadPlate;
+    </script>
+</body>
+
+</html>
