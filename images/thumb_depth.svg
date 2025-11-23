@@ -1,0 +1,17 @@
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#e0f7fa"/>
+  <!-- 3D Cube 1 -->
+  <path d="M100 100 L 140 100 L 160 80 L 120 80 Z" fill="#94d2bd" stroke="#005f73" stroke-width="2"/>
+  <path d="M100 100 L 100 140 L 140 140 L 140 100 Z" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+  <path d="M140 140 L 160 120 L 160 80 L 140 100 Z" fill="#008080" stroke="#005f73" stroke-width="2"/>
+  
+  <!-- 3D Cube 2 (Offset) -->
+  <path d="M240 80 L 280 80 L 300 60 L 260 60 Z" fill="#94d2bd" stroke="#005f73" stroke-width="2"/>
+  <path d="M240 80 L 240 120 L 280 120 L 280 80 Z" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+  <path d="M280 120 L 300 100 L 300 60 L 280 80 Z" fill="#008080" stroke="#005f73" stroke-width="2"/>
+  
+  <!-- Glasses Icon -->
+  <path d="M180 180 Q 200 200 220 180" fill="none" stroke="#005f73" stroke-width="2"/>
+  <circle cx="170" cy="180" r="15" fill="none" stroke="#005f73" stroke-width="2"/>
+  <circle cx="230" cy="180" r="15" fill="none" stroke="#005f73" stroke-width="2"/>
+</svg>

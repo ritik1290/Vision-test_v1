@@ -1,0 +1,15 @@
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#e0f7fa"/>
+  <!-- Hands forming a triangle -->
+  <path d="M120 180 L 200 60 L 280 180 Z" fill="none" stroke="#005f73" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Hands silhouettes simplified -->
+  <path d="M120 180 L 80 220 M280 180 L 320 220" stroke="#005f73" stroke-width="4"/>
+  
+  <!-- Target object in center -->
+  <circle cx="200" cy="130" r="15" fill="#008080"/>
+  <circle cx="200" cy="130" r="25" fill="none" stroke="#94d2bd" stroke-width="2"/>
+  
+  <!-- Eye looking through -->
+  <path d="M180 40 Q 200 20 220 40 Q 200 60 180 40" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+  <circle cx="200" cy="40" r="6" fill="#005f73"/>
+</svg>

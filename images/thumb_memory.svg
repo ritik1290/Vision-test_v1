@@ -1,0 +1,18 @@
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#e0f7fa"/>
+  <!-- Card 1 -->
+  <rect x="80" y="60" width="60" height="80" rx="5" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+  <circle cx="110" cy="100" r="15" fill="#008080"/>
+  
+  <!-- Card 2 -->
+  <rect x="160" y="60" width="60" height="80" rx="5" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+  <rect x="180" y="90" width="20" height="20" fill="#e57373"/>
+  
+  <!-- Card 3 (Flipped) -->
+  <rect x="240" y="60" width="60" height="80" rx="5" fill="#94d2bd" stroke="#005f73" stroke-width="2"/>
+  <path d="M250 70 L 290 130" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+  <path d="M290 70 L 250 130" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Brain Icon -->
+  <path d="M180 180 Q 200 160 220 180 Q 240 180 240 200 Q 220 220 200 200 Q 180 220 160 200 Q 160 180 180 180" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#e0f7fa"/>
+  <!-- Left Eye -->
+  <path d="M80 112.5 Q 120 80 160 112.5 Q 120 145 80 112.5 Z" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+  <circle cx="140" cy="112.5" r="15" fill="#008080"/>
+  
+  <!-- Right Eye -->
+  <path d="M240 112.5 Q 280 80 320 112.5 Q 280 145 240 112.5 Z" fill="#ffffff" stroke="#005f73" stroke-width="2"/>
+  <circle cx="260" cy="112.5" r="15" fill="#008080"/>
+  
+  <!-- Pencil Target -->
+  <path d="M195 180 L 205 180 L 205 60 L 200 40 L 195 60 Z" fill="#ffcc80" stroke="#e65100" stroke-width="2"/>
+  <path d="M195 60 L 205 60 L 200 40 Z" fill="#333333"/>
+  
+  <!-- Convergence Lines -->
+  <line x1="140" y1="112.5" x2="200" y2="40" stroke="#94d2bd" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="260" y1="112.5" x2="200" y2="40" stroke="#94d2bd" stroke-width="2" stroke-dasharray="5,5"/>
+</svg>

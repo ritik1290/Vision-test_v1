@@ -1,0 +1,16 @@
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#e0f7fa"/>
+  <!-- Cross -->
+  <line x1="100" y1="92.5" x2="100" y2="132.5" stroke="#005f73" stroke-width="8" stroke-linecap="round"/>
+  <line x1="80" y1="112.5" x2="120" y2="112.5" stroke="#005f73" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Dot -->
+  <circle cx="300" cy="112.5" r="15" fill="#005f73"/>
+  
+  <!-- Connecting line (dashed) -->
+  <line x1="140" y1="112.5" x2="260" y2="112.5" stroke="#94d2bd" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Eye icon looking -->
+  <path d="M200 180 Q 220 160 240 180 Q 220 200 200 180" fill="#ffffff" stroke="#008080" stroke-width="2"/>
+  <circle cx="220" cy="180" r="5" fill="#008080"/>
+</svg>

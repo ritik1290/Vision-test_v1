@@ -1,0 +1,17 @@
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#e0f7fa"/>
+  <!-- Target Left -->
+  <circle cx="80" cy="112.5" r="20" fill="#008080"/>
+  <circle cx="80" cy="112.5" r="10" fill="#ffffff"/>
+  
+  <!-- Target Right -->
+  <circle cx="320" cy="112.5" r="20" fill="#008080"/>
+  <circle cx="320" cy="112.5" r="10" fill="#ffffff"/>
+  
+  <!-- Eye Movement Path -->
+  <path d="M110 112.5 Q 200 80 290 112.5" fill="none" stroke="#005f73" stroke-width="3" stroke-dasharray="10,5" marker-end="url(#arrow)"/>
+  
+  <!-- Eye Icon in middle -->
+  <path d="M170 140 Q 200 160 230 140" fill="none" stroke="#005f73" stroke-width="2"/>
+  <circle cx="200" cy="140" r="5" fill="#005f73"/>
+</svg>
